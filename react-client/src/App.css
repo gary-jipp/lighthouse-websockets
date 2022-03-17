@@ -1,0 +1,61 @@
+body {
+  font-family: Arial;
+  background-color: #eee;
+  margin: 1em;
+}
+
+h1 {
+  color: #244751;
+}
+
+input {
+  margin-top: .5em;
+  padding: .4em;
+  width: 14em;
+}
+
+textarea {
+  padding: .4em;
+  width: 14.4em;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  padding: 5px;
+  margin: 2px;
+  width: 26em;
+  background-color: #ddd;
+}
+
+li.private { 
+  color: green;
+}
+
+li.server {
+  color: blue;
+}
+
+li:hover {
+  background-color: darkolivegreen;
+  color: white;
+}
+
+li:hover a {
+  color: white;
+}
+
+.notify {
+  color: green;
+  font-family: monospace;
+  padding-bottom: 0.5em;
+}
+
+.email {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  color: blue;
+}

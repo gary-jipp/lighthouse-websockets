@@ -11,7 +11,11 @@ const http = app.listen(8080, () => {
 
 //------------------------ SOCKET.IO STUFF -----------------------------
 // It would be best to put all this socket.io stuff in a separate module
+
 const ioServer = new Server(http);
+
+// This is the same thing showing the Default path: "/socket.io"
+// const ioServer = new Server(http, {path:"/socket.io"});
 
 // Our database of client.id's with email as key
 const users = {};

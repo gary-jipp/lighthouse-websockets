@@ -24,6 +24,10 @@ $(function() {
   });
 
   const socket = io();
+  // This is the same thing, showing the default path
+  // const socket = io("/", {path:"/socket.io"});
+  // const socket = io("/");  // This also works
+
   //------------------------------------------------------------
   socket.on('connect', event => {
     console.log("Connected!");

@@ -1,5 +1,5 @@
 const express = require('express');
-const socketio = require('socket.io');
+const { Server } = require('socket.io');
 const app = express();
 
 app.use(express.static("public"));
@@ -11,7 +11,7 @@ const http = app.listen(8080, () => {
 
 //------------------------ SOCKET.IO STUFF -----------------------------
 // It would be best to put all this socket.io stuff in a separate module
-const ioServer = socketio(http);
+const ioServer = new Server(http);
 
 // Our database of client.id's with email as key
 const users = {};

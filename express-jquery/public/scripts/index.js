@@ -1,8 +1,6 @@
-let email;
+const email = randomEmail(5);
 
 $(function() {
-  email = randomEmail(5);
-
   // Connect to Web Socket Server
   const socket = io();
   // This is the same thing, showing the default path
@@ -43,15 +41,6 @@ const listenForSocketEvents = function(socket) {
   });
 };
 
-// Generates a random email address
-const randomEmail = function(size) {
-  const chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
-  let string = chars[Math.floor(Math.random() * 26)];
-  for (let i = 0; i < size - 1; i++) {
-    string += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return (string + '@gmail.com');
-};
 
 // Send Message
 const sendMessage = function(socket) {
@@ -69,4 +58,14 @@ const sendMessage = function(socket) {
 
   // Otherwise send 'public' message to all
   socket.emit("public", text);
+};
+
+// Generates a random email address
+function randomEmail(size) {
+  const chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
+  let string = chars[Math.floor(Math.random() * 26)];
+  for (let i = 0; i < size - 1; i++) {
+    string += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return (string + '@gmail.com');
 };

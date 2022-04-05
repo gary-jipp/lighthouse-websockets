@@ -58,7 +58,6 @@ const sendMessage = function(socket) {
   }
 
   const to = $("#to").val();
-  console.log("to=", to);
 
   // To no specific user, send a 'public' message
   if (!to) {

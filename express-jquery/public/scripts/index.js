@@ -1,6 +1,7 @@
 const email = randomEmail(5);
 
 $(function() {
+  
   // Connect to Web Socket Server
   const socket = io();
   // This is the same thing, showing the default path

@@ -1,34 +1,19 @@
-
 $(function() {
-  console.log("Ready!");
-
-  $("#clear").on('click', () => {
-    $("#messages").empty();
-  });
-
-  $("#send").on('click', () => {
-    const text = $("#input").val();
-    if (!text) {
-      return;
-    }
-
-    const to = $("#to").val();
-    console.log("to=", to);
-
-    if (!to) {  // Message was sent to no specific user
-      socket.emit("public", text);
-      return;
-    }
-
-    socket.emit("private", { to, text });
-  });
-
+  // Connect to Web Socket Server
   const socket = io();
   // This is the same thing, showing the default path
   // const socket = io("/", {path:"/socket.io"});
   // const socket = io("/");  // This also works
 
+  $("#send").on('click', () => sendMessage(socket));
+  $("#clear").on('click', () => $("#messages").empty());
   //------------------------------------------------------------
+
+  // Just to make things look cleaner
+  listenForSocketEvents(socket);
+});
+
+const listenForSocketEvents = function(socket) {
   socket.on('connect', event => {
     console.log("Connected!");
     const email = randomEmail(5);
@@ -50,8 +35,7 @@ $(function() {
     const element = `<li>${data}</li>`;
     $("#messages").prepend(element);
   });
-
-});
+};
 
 // Generates a random email address
 const randomEmail = function(size) {
@@ -61,4 +45,22 @@ const randomEmail = function(size) {
     string += chars[Math.floor(Math.random() * chars.length)];
   }
   return (string + '@gmail.com');
+};
+
+// Send Message
+const sendMessage = function(text, socket) {
+  const text = $("#input").val();
+  if (!text) {
+    return;
+  }
+
+  const to = $("#to").val();
+  console.log("to=", to);
+
+  if (!to) {  // Message was sent to no specific user
+    socket.emit("public", text);
+    return;
+  }
+
+  socket.emit("private", { to, text });
 };

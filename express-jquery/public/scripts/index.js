@@ -23,6 +23,7 @@ const listenForSocketEvents = function(socket) {
     $(".email").text(email);
   });
 
+  // Listen for custom events
   socket.on('server', data => {
     const element = `<li class='server'>${data}</li>`;
     $("#messages").prepend(element);

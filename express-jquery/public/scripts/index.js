@@ -1,4 +1,8 @@
+let email;
+
 $(function() {
+  email = randomEmail(5);
+
   // Connect to Web Socket Server
   const socket = io();
   // This is the same thing, showing the default path
@@ -18,7 +22,6 @@ const listenForSocketEvents = function(socket) {
   // On Connect, send who we are to server
   socket.on('connect', event => {
     console.log("Connected!");
-    const email = randomEmail(5);
     socket.emit("id", email);
     $(".email").text(email);
   });

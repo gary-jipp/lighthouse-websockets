@@ -57,12 +57,13 @@ const sendMessage = function(socket) {
     return;
   }
 
-  // If to no specific user, send a 'public' message
+  // If to a specific user, send 'private' message
   const to = $("#to").val();
   if (!to) {
-    socket.emit("public", text);
+    socket.emit("private", { to, text });
     return;
   }
 
-  socket.emit("private", { to, text });
+  // Otherwise send 'public' message to all
+  socket.emit("public", text);
 };

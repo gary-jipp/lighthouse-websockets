@@ -14,6 +14,8 @@ $(function() {
 });
 
 const listenForSocketEvents = function(socket) {
+
+  // On Connect, send who we are to server
   socket.on('connect', event => {
     console.log("Connected!");
     const email = randomEmail(5);

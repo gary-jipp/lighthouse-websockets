@@ -55,7 +55,7 @@ ioServer.on('connection', client => {
     users[email] = client.id;
     console.log(users);
     ioServer.to(client.id).emit("server", `Welcome ${email}`);
-    ioServer.emit("public", `connected: ${email}`);
+    ioServer.emit("public", `${email} just connected`);
   });
 
   // Listen for "public" events from this client

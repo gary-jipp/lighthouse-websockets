@@ -59,7 +59,7 @@ const sendMessage = function(socket) {
 
   // If to a specific user, send 'private' message
   const to = $("#to").val();
-  if (!to) {
+  if (to) {
     socket.emit("private", { to, text });
     return;
   }

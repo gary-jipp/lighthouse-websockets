@@ -17,7 +17,7 @@ $(function() {
 
 const listenForSocketEvents = function(socket) {
 
-  // On Connect, send who we are to server
+  // On Connect, tell the server who we are
   socket.on('connect', event => {
     console.log("Connected!");
     socket.emit("id", email);

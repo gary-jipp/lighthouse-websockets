@@ -48,7 +48,7 @@ const randomEmail = function(size) {
 };
 
 // Send Message
-const sendMessage = function(text, socket) {
+const sendMessage = function(socket) {
   const text = $("#input").val();
   if (!text) {
     return;

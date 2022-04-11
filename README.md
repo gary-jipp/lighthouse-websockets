@@ -11,27 +11,27 @@
 [ ] Create some sample events
 [ ] Broadcast vs Direct messages - socket.id
 
-XMLHttpRequest  Ajax - Request / Response
-Hacked Ajax for real time - long polling
-Comet - open an AJAX call and leave open
+- XMLHttpRequest  Ajax - Request / Response
+- Hacked Ajax for real time - long polling
+- Comet - open an AJAX call and leave open
 - request stream is not closed
 - response stream not closed
 - de-facto real-time
 - was a hack! Ajax was never intended for this!
 - needed a real solution
 
-2008 - started working on a real standard
-2010 - Chrome 4 - real websockets
-2011 - The WebSocket Protocol RFC6455
+- 2008 - started working on a real standard
+- 2010 - Chrome 4 - real websockets
+- 2011 - The WebSocket Protocol RFC6455
 
-On top of the HTTP protocol.  
-All the auth, security, same port
-Upgraded HTTP connection
+- On top of the HTTP protocol.  
+- All the auth, security, same port
+- Upgraded HTTP connection
 
 Libraries:
-ws - barebones
-μWebSockets - fast! also pretty barebones
-socket.io - the jQuery of Websockets
+- ws - barebones
+- μWebSockets - fast! also pretty barebones
+- socket.io - the jQuery of Websockets
  - written back when Comet was a thing
  - tries LP first. Upgrades to WS
  - super easy to use

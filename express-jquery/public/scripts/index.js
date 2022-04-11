@@ -46,6 +46,12 @@ const socketEventHandler = function(socket) {
     const element = `<li class='public'>${from} says: ${text}</li>`;
     $("#messages").prepend(element);
   });
+
+
+  socket.onAny((event, data) => {
+    console.log(`Event: [${event}] ${JSON.stringify(data)}`);
+  });
+
 };
 
 // Send Message

@@ -46,16 +46,14 @@ io.on('connection', client => {
 
   // Listen for "id" events from this client
   client.on('id', email => {
-    console.log("ID: ", email);
     users[email] = client.id;
     console.log(users);
     io.to(client.id).emit("server", `Welcome ${email}`);
-    io.emit("server", `${email} just connected` );
+    io.emit("server", `${email} just connected`);
   });
 
   // Listen for "private" events from this client
   client.on('message', data => {
-    console.log(data);
     const { to, text } = data;
 
     // We know the socket ID of the sender.  Lookup email for "from"
@@ -77,6 +75,11 @@ io.on('connection', client => {
 
     // send is compatible with vanilla websockets. No custom event name
     // socket.send("msg.text);
+  });
+
+  // Can also use a catch-all listener
+  client.onAny((event, data) => {
+    console.log(`Event: [${event}] ${JSON.stringify(data)}`);
   });
 
 });

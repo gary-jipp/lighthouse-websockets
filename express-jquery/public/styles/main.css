@@ -8,13 +8,13 @@ h1 {
   color: #244751;
 }
 
-#to{
+#to {
   margin-top: .5em;
   padding: .4em;
   width: 14em;
 }
 
-#input{
+#input {
   padding: .4em;
   width: 14.4em;
 }
@@ -31,12 +31,16 @@ li {
   background-color: #ddd;
 }
 
-li.private { 
+li.private {
+  color: blue;
+}
+
+li.public {
   color: green;
 }
 
 li.server {
-  color: blue;
+  color:#666;
 }
 
 li:hover {

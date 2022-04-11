@@ -12,7 +12,7 @@ const http = app.listen(8080, () => {
 //------------------------ SOCKET.IO STUFF -----------------------------
 // It would be best to put all this socket.io stuff in a separate module
 
-const ioServer = new Server(http);
+const io = new Server(http);
 
 // This is the same thing showing the Default path: "/socket.io"
 // const ioServer = new Server(http, {path:"/socket.io"});
@@ -35,7 +35,7 @@ const removeUser = function(id) {
 };
 
 // Listen for "connection" events
-ioServer.on('connection', client => {
+io.on('connection', client => {
   console.log("Client Connected: ", client.id);
 
   // Listen for disconnect events from this client
@@ -44,37 +44,39 @@ ioServer.on('connection', client => {
     removeUser(client.id);
   });
 
-  // Listen for "message" events from this client
-  client.on('message', data => {
-    console.log(data);
-  });
-
   // Listen for "id" events from this client
   client.on('id', email => {
     console.log("ID: ", email);
     users[email] = client.id;
     console.log(users);
-    ioServer.to(client.id).emit("server", `Welcome ${email}`);
-    ioServer.emit("public", `${email} just connected`);
-  });
-
-  // Listen for "public" events from this client
-  client.on('public', data => {
-    console.log("public: ", data);
-    ioServer.emit("public", data);
+    io.to(client.id).emit("server", `Welcome ${email}`);
+    io.emit("server", `${email} just connected` );
   });
 
   // Listen for "private" events from this client
-  client.on('private', data => {
+  client.on('message', data => {
+    console.log(data);
     const { to, text } = data;
-    const id = users[to];
-    const from = getEmailById(client.id);
-    console.log(`private:  to=${data.to}, from=${from}, text=${data.text}`);
 
-    // Only send if there is a client.id 
-    if (id) {
-      ioServer.to(id).emit("private", { text, from });   // Send to that id
+    // We know the socket ID of the sender.  Lookup email for "from"
+    const from = getEmailById(client.id);
+
+    // If no "to" send a broadcast message to all 
+    if (!to) {
+      console.log(`public: from=${from}, text=${data.text}`);
+      io.emit("public", { text, from });
+      return;
     }
+
+    //  We need the socket ID of the "to" user
+    const id = users[to];
+    if (id) {
+      console.log(`private:  to=${data.to}, from=${from}, text=${data.text}`);
+      io.to(id).emit("private", { text, from });   // Send to that id
+    }
+
+    // send is compatible with vanilla websockets. No custom event name
+    // socket.send("msg.text);
   });
 
 });

@@ -1,4 +1,4 @@
-const email = randomEmail(5);
+const email = randomEmail(3);
 
 $(function() {
   $(".email").text(email);
@@ -32,16 +32,19 @@ const listenForSocketEvents = function(socket) {
   });
 
   socket.on('private', data => {
-    const element = `<li class='private'>${data.from}: ${data.text}</li>`;
+    const { from, text } = data;
+
+    const element = `<li class='private'>${from} says: ${text}</li>`;
     $("#messages").prepend(element);
   });
 
   socket.on('public', data => {
-    const element = `<li>${data}</li>`;
+    const { from, text } = data;
+    
+    const element = `<li class='public'>${from} says: ${text}</li>`;
     $("#messages").prepend(element);
   });
 };
-
 
 // Send Message
 const sendMessage = function(socket) {
@@ -50,15 +53,13 @@ const sendMessage = function(socket) {
     return;
   }
 
-  // If to a specific user, send 'private' message
+  // Send 'message' event
   const to = $("#to").val();
-  if (to) {
-    socket.emit("private", { to, text });
-    return;
-  }
+  socket.emit("message", { to, text });
 
-  // Otherwise send 'public' message to all
-  socket.emit("public", text);
+  // send() is compatible with vanilla websockets. No custom event name
+  // defaults to "message" event
+  // socket.send({ to, text });
 };
 
 // Generates a random email address

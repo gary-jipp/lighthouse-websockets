@@ -15,7 +15,7 @@ const http = app.listen(8080, () => {
 const io = new Server(http);
 
 // This is the same thing showing the Default path: "/socket.io"
-// const ioServer = new Server(http, {path:"/socket.io"});
+// const io = new Server(http, {path:"/socket.io"});
 
 // Our database of client.id's with email as key
 const users = {};

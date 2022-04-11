@@ -1,5 +1,6 @@
 import 'App.css';
 import { useEffect, useState } from 'react';
+import randomEmail from 'email';
 import io from "socket.io-client";
 
 export default function App() {
@@ -14,7 +15,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    setEmail(randomEmail(5));
+    setEmail(randomEmail(3));
   }, []);
 
   // This app makes a websocket connection immediately
@@ -29,7 +30,7 @@ export default function App() {
     });
 
     socket.on('public', msg => {
-      setMessages(prev => [msg, ...prev]);
+      setMessages(prev => [`${msg.from} says: ${msg.text}`, ...prev]);
     });
 
     socket.on('private', msg => {
@@ -45,16 +46,6 @@ export default function App() {
   };
   const onToChange = function(event) {
     setTo(event.target.value);
-  };
-
-  // Generates a random email address
-  const randomEmail = function(size) {
-    const chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
-    let string = chars[Math.floor(Math.random() * 26)];
-    for (let i = 0; i < size - 1; i++) {
-      string += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return (string + '@gmail.com');
   };
 
   // Send chat message to someone

@@ -73,7 +73,7 @@ io.on('connection', client => {
       io.to(id).emit("private", { text, from });   // Send to that id
     }
 
-    // send is compatible with vanilla websockets. No custom event name
+    // send() just sends a "message" event
     // socket.send("msg.text);
   });
 

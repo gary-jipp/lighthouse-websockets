@@ -23,6 +23,8 @@ const socketEventHandler = function(socket) {
   socket.on('connect', event => {
     console.log("Connected!");
     socket.emit("id", email);
+
+    // socket.send({ event:"id", email });
   });
 
   // Listen for custom events
@@ -40,7 +42,7 @@ const socketEventHandler = function(socket) {
 
   socket.on('public', data => {
     const { from, text } = data;
-    
+
     const element = `<li class='public'>${from} says: ${text}</li>`;
     $("#messages").prepend(element);
   });
@@ -57,7 +59,7 @@ const sendMessage = function(socket) {
   const to = $("#to").val();
   socket.emit("message", { to, text });
 
-  // send() is compatible with vanilla websockets. No custom event name
+  // send() is more like vanilla websockets. No custom event name
   // defaults to "message" event
   // socket.send({ to, text });
 };

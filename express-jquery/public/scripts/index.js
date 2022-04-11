@@ -14,10 +14,10 @@ $(function() {
   //------------------------------------------------------------
 
   // Just to make things look cleaner
-  listenForSocketEvents(socket);
+  socketEventHandler(socket);
 });
 
-const listenForSocketEvents = function(socket) {
+const socketEventHandler = function(socket) {
 
   // On Connect, tell the server who we are
   socket.on('connect', event => {

@@ -13,7 +13,7 @@ $(function() {
   $("#clear").on('click', () => $("#messages").empty());
   //------------------------------------------------------------
 
-  // Just to make things look cleaner
+  // Just to make things cleaner
   socketEventHandler(socket);
 });
 

@@ -59,7 +59,7 @@ export default function App() {
 
   // Send chat message to someone
   const send = function() {
-    socket && text && socket.emit('private', { text, to });
+    socket && text && socket.emit('message', { text, to });
   };
 
   const list = messages.map((msg, i) => {

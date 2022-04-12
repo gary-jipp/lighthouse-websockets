@@ -36,7 +36,7 @@ export default function App() {
     });
 
     setSocket(socket);
-    return () => socket.disconnect();
+    return () => socket.disconnect(); // prevents memory leak!
   }, [email]);
 
   // Send chat message to someone

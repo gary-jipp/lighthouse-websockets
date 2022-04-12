@@ -1,32 +1,30 @@
-import 'App.css';
 import { useEffect, useState } from 'react';
 import randomEmail from 'email';
 import io from "socket.io-client";
+import 'App.css';
 
 export default function App() {
-  const [socket, setSocket] = useState("");
+  const [socket, setSocket] = useState();
   const [email, setEmail] = useState();
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
   const [to, setTo] = useState("");
 
-  const clear = function() {
-    setMessages([]);
-  };
-
   useEffect(() => {
     setEmail(randomEmail(3));
   }, []);
 
-  // This app makes a websocket connection immediately
   useEffect(() => {
     // Connect to server
     const socket = io("/");
-    setSocket(socket);
 
     socket.on('connect', event => {
       console.log("connected");
       socket.emit("id", email);
+    });
+
+    socket.on('server', msg => {
+      setMessages(prev => [msg, ...prev]);
     });
 
     socket.on('public', msg => {
@@ -37,16 +35,9 @@ export default function App() {
       setMessages(prev => [`${msg.from} says: ${msg.text}`, ...prev]);
     });
 
-    // ensures we disconnect to avoid memory leaks
+    setSocket(socket);
     return () => socket.disconnect();
   }, [email]);
-
-  const onTextChange = function(event) {
-    setText(event.target.value);
-  };
-  const onToChange = function(event) {
-    setTo(event.target.value);
-  };
 
   // Send chat message to someone
   const send = function() {
@@ -60,20 +51,27 @@ export default function App() {
   return (
     <div className="App">
       <h1>Web Sockets React</h1>
-
       <div className="email">{email}</div>
+
       <div>
-        <input onChange={onToChange} value={to} placeholder="Recipient" />
+        <input
+          onChange={event => setTo(event.target.value)}
+          value={to}
+          placeholder="Recipient" />
       </div>
       <div>
-        <textarea onChange={onTextChange} placeholder="Type a message" />
+        <textarea
+          onChange={event => setText(event.target.value)}
+          placeholder="Type a message" />
       </div>
 
       <button onClick={send}>Send</button>
-      <button onClick={clear}>Clear</button>
+      <button onClick={() => setMessages([])}>Clear</button>
+
       <ul>
         {list}
       </ul>
+
     </div >
   );
 }

@@ -1,9 +1,9 @@
 # Web Sockets
 
 [ ] What is WebSockets
-[ ] WebSockets & http protocol
 [ ] Why WebSockets
-[ ] Express Server
+[ ] WebSockets & the http protocol
+[ ] WebSockets with an Express Server
 [ ] Server: Listen for connections
 [ ] Client: Connect
 [ ] Client & Server: handle socket events

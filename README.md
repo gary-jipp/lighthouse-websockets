@@ -4,7 +4,6 @@
 [ ] WebSockets & http protocol
 [ ] Why WebSockets
 [ ] Express Server
-[ ] jQuery Client / React Client
 [ ] Server: Listen for connections
 [ ] Client: Connect
 [ ] Client & Server: handle socket events

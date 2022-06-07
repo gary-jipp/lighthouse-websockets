@@ -27,11 +27,11 @@ ul {
 li {
   padding: 5px;
   margin: 2px;
-  width: 26em;
+  width: 18em;
   background-color: #ddd;
 }
 
-li.private { 
+li.private {
   color: green;
 }
 
@@ -54,8 +54,9 @@ li:hover a {
   padding-bottom: 0.5em;
 }
 
-.email {
+.name {
   font-family: 'Courier New', Courier, monospace;
+  padding-bottom: 0.5em;
   font-weight: bold;
   color: blue;
 }

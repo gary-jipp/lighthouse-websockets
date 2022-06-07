@@ -6,7 +6,7 @@ export default function App() {
   return (
     <div className="App">
       <h1>Web Sockets React</h1>
-      <div className="name">{"My Name"}</div>
+      <div className="name">{"Hello World"}</div>
     </div >
   );
 }

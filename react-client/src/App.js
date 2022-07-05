@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import 'App.css';
 
 export default function App() {
-  const [name, setName] = useState("Hello World");
+  const [name, setName] = useState("");
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
   const [to, setTo] = useState("");

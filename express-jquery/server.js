@@ -1,85 +1,52 @@
 const express = require('express');
-const { Server } = require('socket.io');
+const {Server} = require('socket.io');
+const ikea = require('ikea-name-generator');
+
 const app = express();
 
-app.use(express.static("public"));
-
 const http = app.listen(8080, () => {
-  console.log(`Server running at http://localhost:8080`);
+  console.log(`Server running at port: 8080`);
 });
 
 
-//------------------------ SOCKET.IO STUFF -----------------------------
-// It would be best to put all this socket.io stuff in a separate module
+const clients = {};
 
 const io = new Server(http);
 
-// This is the same thing showing the Default path: "/socket.io"
-// const io = new Server(http, {path:"/socket.io"});
+io.on('connection', (client) => {
+  const name = ikea.getName();
+  console.log("Someone connected!", client.id, name);
+  client.name = name;
+  clients[name] = client.id;
+  console.log(clients);
 
-// Our database of client.id's with email as key
-const users = {};
 
-const getEmailById = function(id) {
-  for (const email in users) {
-    if (users[email] == id) {
-      return email;
-    }
-  }
-};
+  client.broadcast.emit('server', `${name}: just connected`);
 
-const removeUser = function(id) {
-  const email = getEmailById(id);
-  if (email)
-    delete users[email];
-};
+  // console.log(client);
 
-// Listen for "connection" events
-io.on('connection', client => {
-  console.log("Client Connected: ", client.id);
+  client.emit("name", name);
 
-  // Listen for disconnect events from this client
-  client.on('disconnect', () => {
-    console.log("disconnected: ", client.id);
-    removeUser(client.id);
-  });
+  client.on("message", data => {
+    console.log("message:", data);
+    data.from = client.name;
 
-  // Listen for "id" events from this client
-  client.on('id', email => {
-    users[email] = client.id;
-    console.log(users);
-    io.to(client.id).emit("server", `Welcome ${email}`);
-    io.emit("server", `${email} just connected`);
-  });
-
-  // Listen for "private" events from this client
-  client.on('message', data => {
-    const { to, text } = data;
-
-    // We know the socket ID of the sender.  Lookup email for "from"
-    const from = getEmailById(client.id);
-
-    // If no "to" send a broadcast message to all 
-    if (!to) {
-      console.log(`public: from=${from}, text=${data.text}`);
-      io.emit("public", { text, from });
+    if (data.to) {
+      ///  send to specific user
+      const id = clients[data.to];
+      console.log("message is for: ", data.to, id);
+      io.to(id).emit('user', data);
       return;
     }
 
-    //  We need the socket ID of the "to" user
-    const id = users[to];
-    if (id) {
-      console.log(`private:  to=${data.to}, from=${from}, text=${data.text}`);
-      io.to(id).emit("private", { text, from });   // Send to that id
-    }
-
-    // send() just sends a "message" event
-    // socket.send("msg.text);
+    // Send to all
+    client.broadcast.emit('user', data);
   });
 
-  // Can also use a catch-all listener
-  client.onAny((event, data) => {
-    console.log(`Event: [${event}] ${JSON.stringify(data)}`);
+
+  client.on('disconnect', () => {
+    delete clients[client.name];
+    console.log('Client Disconnected!', client.name);
   });
 
 });

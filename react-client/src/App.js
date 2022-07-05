@@ -1,57 +1,48 @@
-import { useEffect, useState } from 'react';
-import randomEmail from 'email';
+import {useEffect, useState} from 'react';
 import io from "socket.io-client";
 import 'App.css';
 
 export default function App() {
-  const [socket, setSocket] = useState();
-  const [email, setEmail] = useState();
+  const [name, setName] = useState("Hello World");
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
   const [to, setTo] = useState("");
-
-  useEffect(() => {
-    setEmail(randomEmail(3));
-  }, []);
+  const [socket, setSocket] = useState();
 
   useEffect(() => {
     // Connect to server
-    const socket = io("/");
+    const socket = io();
+    setSocket(socket);
 
-    socket.on('connect', event => {
-      console.log("connected");
-      socket.emit("id", email);
+    socket.on('connect', () => {
+      console.log("Connected!");
+    });
+
+    socket.on('user', msg => {
+      setMessages(prev => [`${msg.from} says:" ${msg.text}`, ...prev,]);
     });
 
     socket.on('server', msg => {
-      setMessages(prev => [msg, ...prev]);
+      setMessages(prev => [msg, ...prev,]);
     });
 
-    socket.on('public', msg => {
-      setMessages(prev => [`${msg.from} says: ${msg.text}`, ...prev]);
+    socket.on('name', (data) => {
+      setName(data);
     });
 
-    socket.on('private', msg => {
-      setMessages(prev => [`${msg.from} says: ${msg.text}`, ...prev]);
-    });
-
-    setSocket(socket);
     return () => socket.disconnect(); // prevents memory leak!
-  }, [email]);
+  }, []);
 
-  // Send chat message to someone
+  const list = messages.map(msg => <li>{msg}</li>);
+
   const send = function() {
-    socket && text && socket.emit('message', { text, to });
+    socket.emit("message", {to, text});
   };
-
-  const list = messages.map((msg, i) => {
-    return <li key={i}>{msg}</li>;
-  });
 
   return (
     <div className="App">
       <h1>Web Sockets React</h1>
-      <div className="email">{email}</div>
+      <div className="email">{name}</div>
 
       <div>
         <input
@@ -59,15 +50,15 @@ export default function App() {
           value={to}
           placeholder="Recipient" />
       </div>
+
       <div>
         <textarea
-          onChange={event => setText(event.target.value)}
+          onChange={e => setText(e.target.value)}
           placeholder="Type a message" />
       </div>
+      <button onClick={send} >Send</button>
 
-      <button onClick={send}>Send</button>
       <button onClick={() => setMessages([])}>Clear</button>
-
       <ul>
         {list}
       </ul>

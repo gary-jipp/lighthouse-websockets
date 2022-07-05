@@ -1,15 +1,15 @@
 # Web Sockets
 
-[ ] What is WebSockets
-[ ] WebSockets & http protocol
-[ ] Why WebSockets
-[ ] Express Server
-[ ] jQuery Client / React Client
-[ ] Server: Listen for connections
-[ ] Client: Connect
-[ ] Client & Server: handle socket events
-[ ] Create some sample events
-[ ] Broadcast vs Direct messages - socket.id
+- [ ] What is WebSockets
+- [ ] WebSockets & http protocol
+- [ ] Why WebSockets
+- [ ] Express Server
+- [ ] jQuery Client / React Client
+- [ ] Server: Listen for connections
+- [ ] Client: Connect
+- [ ] Client & Server: handle socket events
+- [ ] Create some sample events
+- [ ] Broadcast vs Direct messages - socket.id
 
 - XMLHttpRequest  Ajax - Request / Response
 - Hacked Ajax for real time - long polling
@@ -24,8 +24,8 @@
 - 2010 - Chrome 4 - real websockets
 - 2011 - The WebSocket Protocol RFC6455
 
-- On top of the HTTP protocol.  
-- All the auth, security, same port
+- On top of the HTTP protocol.
+- All the auth inherited, security (https), same port
 - Upgraded HTTP connection
 
 Libraries:
@@ -38,3 +38,5 @@ Libraries:
  - looks  a lot like jQuery
  - features: auto-reconnect. custom events!
  - getting old, still hugely popular.
+
+https://socket.io/docs/v3/emit-cheatsheet/

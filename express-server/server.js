@@ -43,7 +43,7 @@ io.on('connection', (client) => {
     client.broadcast.emit('user', data);
   });
 
-
+  // Need name to be persistent so we can see who disconnected
   client.on('disconnect', () => {
     delete clients[client.name];
     console.log('Client Disconnected!', client.name);

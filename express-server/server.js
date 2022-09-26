@@ -17,7 +17,7 @@ const io = new Server(http);
 io.on('connection', client => {
   const name = ikea.getName();
   console.log("Client Connected!", name, " : ", client.id);
-  client.emit("system", "Welcome");
+  client.emit("system", `Welcome ${name}`);
 
   client.broadcast.emit('system', `${name} has just joined`);
 

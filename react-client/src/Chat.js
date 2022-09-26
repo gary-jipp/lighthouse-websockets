@@ -16,8 +16,8 @@ const Chat = function() {
     });
 
     socket.on("system", data => {
+      console.log(data);
       setMessages(prev => [data, ...prev]);
-      // console.log(data);
     });
 
     socket.on("public", data => {

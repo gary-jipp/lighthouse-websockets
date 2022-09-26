@@ -1,5 +1,5 @@
 {
-  "name": "wersocket-example",
+  "name": "websocket-example",
   "version": "0.0.1",
   "description": "WebSockets Example App",
   "dependencies": {

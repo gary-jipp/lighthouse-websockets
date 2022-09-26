@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import io from 'socket.io-client';
 
-const Chat = function() {
+const Chat = function(props) {
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState();
   const [text, setText] = useState("");
@@ -64,6 +64,7 @@ const Chat = function() {
       <ul>
         {list}
       </ul>
+      <button type="button" onClick={props.logout}>Logout</button>
     </>
   );
 };

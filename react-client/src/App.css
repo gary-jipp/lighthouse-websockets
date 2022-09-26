@@ -60,3 +60,13 @@ li:hover a {
   font-weight: bold;
   color: blue;
 }
+
+input {
+  width: 16em;
+}
+
+p {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+

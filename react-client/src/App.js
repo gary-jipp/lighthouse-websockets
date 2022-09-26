@@ -1,14 +1,27 @@
-import 'App.css';
+import Login from 'pages/Login';
+import Chat from 'pages/Chat';
 import {useState} from 'react';
+import 'App.css';
 
 export default function App() {
-  const text = useState("Hello World");
+  const [auth, setAuth] = useState(false);
 
+  // Perform some login process for the user
+  const login = function(email, password) {
+    setAuth(true);
+  };
+
+  const logout = function() {
+    setAuth(false);
+  };
 
   return (
     <div className="App">
-      <h1>Web Sockets</h1>
-      <div className="name">{text}</div>
+      <h1>Web Sockets React</h1>
+
+      {auth && <Chat logout={logout} />}
+      {!auth && <Login login={login} />}
+
     </div >
   );
 }

@@ -4,11 +4,11 @@ import useSound from 'use-sound';
 import sound from 'sounds/notify.mp3';
 
 const Chat = function(props) {
+  const [play] = useSound(sound, {volume: 0.75});
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState();
   const [text, setText] = useState("");
   const [to, setTo] = useState("");
-  const [play] = useSound(sound, {volume: 0.75});
 
   const notify = function() {
     play();

@@ -1,11 +1,18 @@
 import {useEffect, useState} from 'react';
 import io from 'socket.io-client';
+import useSound from 'use-sound';
+import sound from 'sounds/notify.mp3';
 
 const Chat = function(props) {
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState();
   const [text, setText] = useState("");
   const [to, setTo] = useState("");
+  const [play] = useSound(sound, {volume: 0.75});
+
+  const notify = function() {
+    play();
+  };;
 
   useEffect(() => {
     const socket = io();
@@ -27,6 +34,7 @@ const Chat = function(props) {
     });
 
     socket.on("private", data => {
+      notify();
       const message = `${data.from} says:  ${data.text}`;
       setMessages(prev => [message, ...prev]);
       // console.log(data);

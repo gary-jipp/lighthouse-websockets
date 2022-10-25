@@ -1,4 +1,8 @@
-# Web Sockets
+# Multi-page Apps & Web Sockets
+
+[ ] Why multiple pages?
+[ ] How to make an SPA with multiple pages
+[ ] 3rd party modules vs just code it!
 
 [ ] What is WebSockets
 [ ] Why WebSockets

@@ -5,6 +5,5 @@
 [ ] WebSockets & the http protocol
 [ ] WebSockets with an Express Server
 [ ] Server: Listen for connections
-[ ] Client: Connect
+[ ] Client: Connect to Server
 [ ] Client & Server: handle socket events
-

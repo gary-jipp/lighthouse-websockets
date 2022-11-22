@@ -2,6 +2,7 @@
 
 [ ] What is WebSockets?
 [ ] WebSockets & http protocol
+[ ] MultiPage Demo App
 [ ] Express Server
 [ ] Server & Server Connections
 [ ] Socket Events

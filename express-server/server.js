@@ -1,6 +1,8 @@
 const {Server} = require('socket.io');
 const express = require('express');
-const ikea = require('ikea-name-generator');
+const {uniqueNamesGenerator, colors, animals} = require('unique-names-generator');
+const config = {dictionaries: [colors, animals]};
+
 const app = express();
 
 app.get("/login", (req, res) => {

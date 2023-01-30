@@ -1,6 +1,8 @@
 const {Server} = require('socket.io');
 const express = require('express');
-const ikea = require('ikea-name-generator');
+const {uniqueNamesGenerator, colors, animals} = require('unique-names-generator');
+const config = {dictionaries: [colors, animals]};
+
 const app = express();
 
 app.get("/login", (req, res) => {
@@ -15,7 +17,7 @@ const clients = {};
 const io = new Server(http);
 
 io.on('connection', client => {
-  const name = ikea.getName();
+  const name = uniqueNamesGenerator(config);
   console.log("Client Connected!", name, " : ", client.id);
   client.emit("system", `Welcome ${name}`);
   client.broadcast.emit('system', `${name} has just joined`);

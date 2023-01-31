@@ -8,5 +8,8 @@
   "scripts": {
     "start": "node server.js",
     "local": "npx nodemon server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }

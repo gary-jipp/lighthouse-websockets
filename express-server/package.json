@@ -1,5 +1,5 @@
 {
-  "name": "wersocket-example",
+  "name": "websocket-example",
   "version": "0.0.1",
   "description": "WebSockets Example App",
   "dependencies": {
@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "local": "npx nodemon server.js"
+    "local": "nodemon server.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"

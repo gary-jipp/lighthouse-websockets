@@ -54,6 +54,10 @@ li:hover a {
   padding-bottom: 0.5em;
 }
 
+button.logout {
+  margin-left: 0.5em;
+}
+
 .name {
   font-family: 'Courier New', Courier, monospace;
   padding-bottom: 0.5em;
@@ -69,4 +73,3 @@ p {
   margin-bottom: 0.5em;
   margin-top: 0.5em;
 }
-

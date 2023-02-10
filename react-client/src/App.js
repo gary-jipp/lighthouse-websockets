@@ -27,8 +27,17 @@ export default function App() {
     <div className="App">
       <h1>Web Sockets React</h1>
 
-      {user && <Chat logout={logout} />}
-      {!user && <Login login={login} />}
+      {user &&
+        <>
+          <span>Logged in as:</span><span className="name"> {user.name}</span>
+          <button className="logout" type="button" onClick={logout}>Logout</button>
+          <Chat />
+        </>
+      }
+
+      {!user &&
+        <Login login={login} />
+      }
 
     </div >
   );

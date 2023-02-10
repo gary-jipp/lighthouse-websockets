@@ -1,26 +1,38 @@
+import {useState} from 'react';
+import axios from 'axios';
 import Login from 'pages/Login';
 import Chat from 'pages/Chat';
 import 'App.css';
-import {useState} from 'react';
 
 export default function App() {
-  const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState(null);
 
   // Perform some login process for the user
   const login = function(email, password) {
-    setAuth(true);
+    axios.post("api/login", {email, password})
+      .then(res => {
+        setUser(res.data);
+        console.log(res.data);
+      });
   };
 
   const logout = function() {
-    setAuth(false);
+    console.log("logout");
+    axios.post("api/logout", {})
+      .then(res => {
+        setUser(null);
+      })
+      .catch(err => {
+        console.log("Error: ", err.message);
+      });
   };
 
   return (
     <div className="App">
       <h1>Web Sockets React</h1>
 
-      {auth && <Chat logout={logout} />}
-      {!auth && <Login login={login} />}
+      {user && <Chat logout={logout} />}
+      {!user && <Login login={login} />}
 
     </div >
   );

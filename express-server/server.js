@@ -1,23 +1,52 @@
 const {Server} = require('socket.io');
 const express = require('express');
-const {uniqueNamesGenerator, colors, animals} = require('unique-names-generator');
-const config = {dictionaries: [colors, animals]};
+const session = require("express-session");
 
 const app = express();
+app.use(express.static("public"));
+app.use(express.json());
 
-app.get("/login", (req, res) => {
-  res.json({"status": ok});
+// Enable Sessions
+const serverSession = session({
+  secret: "password",
+  resave: false,
+  saveUninitialized: false,
+});
+app.use(serverSession);
+
+
+app.post("/api/login", (req, res) => {
+  const name = req.body.email;
+  if (!name) {
+    return res.json({error: "empty"});
+  }
+
+  req.session.name = name;
+  res.json({name});
+});
+
+app.post("/api/logout", (req, res) => {
+  console.log("logout");
+  req.session.name = null;
+  res.status(204).send();
 });
 
 const http = app.listen(8080, () => {
   console.log(`Server running at port: 8080`);
 });
 
-const clients = {};
+// Start WS Server
 const io = new Server(http);
+const clients = {};
+
+// Allow socket.io to access session
+const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
+io.use(wrap(serverSession));
 
 io.on('connection', client => {
-  const name = uniqueNamesGenerator(config);
+  const session = client.request.session;
+  const name = session.name;
+
   console.log("Client Connected!", name, " : ", client.id);
   client.emit("system", `Welcome ${name}`);
   client.broadcast.emit('system', `${name} has just joined`);

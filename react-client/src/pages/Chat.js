@@ -54,6 +54,7 @@ const Chat = function(props) {
 
   return (
     <>
+      <button type="button" onClick={props.logout}>Logout</button>
       <div>
         <input
           onChange={event => setTo(event.target.value)}
@@ -72,7 +73,6 @@ const Chat = function(props) {
       <ul>
         {list}
       </ul>
-      <button type="button" onClick={props.logout}>Logout</button>
     </>
   );
 };

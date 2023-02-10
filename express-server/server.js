@@ -1,26 +1,30 @@
 const {Server} = require('socket.io');
 const express = require('express');
-const session = require("express-session");
+// const session = require("express-session");  // For Server Sessions
+const session = require('cookie-session');    // for Client Cookie Sessions
 
 const app = express();
 app.use(express.static("public"));
 app.use(express.json());
 
-// Enable Sessions
-const serverSession = session({
-  secret: "password",
-  resave: false,
-  saveUninitialized: false,
+// Enable Cookie Sessions
+const cookieSession = session({
+  name: 'session',
+  keys: ["secret"],
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
 });
-app.use(serverSession);
 
+// Can also use Server-based sessions
+// const serverSession = session({
+//   secret: "password",
+//   resave: false,
+//   saveUninitialized: false,
+// });
+
+app.use(cookieSession);
 
 app.post("/api/login", (req, res) => {
   const name = req.body.email;
-  if (!name) {
-    return res.json({error: "empty"});
-  }
-
   req.session.name = name;
   res.json({name});
 });
@@ -41,7 +45,7 @@ const clients = {};
 
 // Allow socket.io to access session
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
-io.use(wrap(serverSession));
+io.use(wrap(session));
 
 io.on('connection', client => {
   const session = client.request.session;

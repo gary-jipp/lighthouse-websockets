@@ -4,9 +4,7 @@ const express = require('express');
 // Enable Cookie Sessions
 const cookieSession = require('cookie-session');    // for Client Cookie Sessions
 const session = cookieSession({
-  name: 'session',
-  keys: ["secret"],
-  sameSite: true,
+  name: 'session', keys: ["secret"], sameSite: true,
   maxAge: 24 * 60 * 60 * 1000,// 24 hours
 });
 

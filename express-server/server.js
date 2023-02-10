@@ -1,37 +1,40 @@
 const {Server} = require('socket.io');
 const express = require('express');
-// const session = require("express-session");  // For Server Sessions
-const session = require('cookie-session');    // for Client Cookie Sessions
+const session = require("express-session");  // For Server Sessions
+// const session = require('cookie-session');    // for Client Cookie Sessions
 
 const app = express();
 app.use(express.static("public"));
 app.use(express.json());
 
 // Enable Cookie Sessions
-const cookieSession = session({
-  name: 'session',
-  keys: ["secret"],
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
-});
-
-// Can also use Server-based sessions
-// const serverSession = session({
-//   secret: "password",
-//   resave: false,
-//   saveUninitialized: false,
+// const clientSession = session({
+//   name: 'session',
+//   keys: ["secret"],
+//   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 // });
 
-app.use(cookieSession);
-
-app.post("/api/login", (req, res) => {
-  const name = req.body.email;
-  req.session.name = name;
-  res.json({name});
+// Can also use Server-based sessions
+const serverSession = session({
+  secret: "password",
+  resave: false,
+  saveUninitialized: false,
 });
 
+app.use(serverSession);
+
+// Login: save user to session
+app.post("/api/login", (req, res) => {
+  const name = req.body.email;
+  const user = {id: 1, name};
+  req.session.user = user;
+  res.json(user);
+});
+
+// Login: remove user object from session
 app.post("/api/logout", (req, res) => {
   console.log("logout");
-  req.session.name = null;
+  req.session.user = null;
   res.status(204).send();
 });
 
@@ -45,11 +48,11 @@ const clients = {};
 
 // Allow socket.io to access session
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
-io.use(wrap(session));
+io.use(wrap(serverSession));
 
 io.on('connection', client => {
   const session = client.request.session;
-  const name = session.name;
+  const name = session?.user?.name;
 
   console.log("Client Connected!", name, " : ", client.id);
   client.emit("system", `Welcome ${name}`);

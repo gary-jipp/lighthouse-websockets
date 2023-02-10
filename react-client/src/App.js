@@ -11,6 +11,7 @@ export default function App() {
   const login = function(email, password) {
     axios.post("api/login", {email, password})
       .then(res => {
+        console.log(res.data);
         setUser(res.data);
       });
   };

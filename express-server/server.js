@@ -30,7 +30,6 @@ app.post("/api/login", (req, res) => {
 
 // Login: remove user object from session
 app.post("/api/logout", (req, res) => {
-  console.log(req.session.maxAge);
   req.session.user = null;
   res.status(204).send();
 });

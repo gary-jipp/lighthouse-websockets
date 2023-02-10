@@ -1,27 +1,29 @@
 const {Server} = require('socket.io');
 const express = require('express');
-const session = require("express-session");  // For Server Sessions
-// const session = require('cookie-session');    // for Client Cookie Sessions
 
+// Enable Cookie Sessions
+const cookieSession = require('cookie-session');    // for Client Cookie Sessions
+const session = cookieSession({
+  name: 'session',
+  keys: ["secret"],
+  maxAge: 24 * 60 * 60 * 1000,// 24 hours
+  sameSite: true
+});
+
+// Can also use Server-based sessions
+// const expressSession = require("express-session");  // For Server Sessions
+// const session = expressSession({
+//   secret: "password",
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: {sameSite: true}
+// });
+
+// Create Express App
 const app = express();
 app.use(express.static("public"));
 app.use(express.json());
-
-// Enable Cookie Sessions
-// const clientSession = session({
-//   name: 'session',
-//   keys: ["secret"],
-//   maxAge: 24 * 60 * 60 * 1000 // 24 hours
-// });
-
-// Can also use Server-based sessions
-const serverSession = session({
-  secret: "password",
-  resave: false,
-  saveUninitialized: false,
-});
-
-app.use(serverSession);
+app.use(session);
 
 // Login: save user to session
 app.post("/api/login", (req, res) => {
@@ -33,7 +35,6 @@ app.post("/api/login", (req, res) => {
 
 // Login: remove user object from session
 app.post("/api/logout", (req, res) => {
-  console.log("logout");
   req.session.user = null;
   res.status(204).send();
 });
@@ -48,7 +49,7 @@ const clients = {};
 
 // Allow socket.io to access session
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
-io.use(wrap(serverSession));
+io.use(wrap(session));
 
 io.on('connection', client => {
   const session = client.request.session;

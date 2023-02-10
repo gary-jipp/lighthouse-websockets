@@ -19,11 +19,11 @@ const Chat = function(props) {
     setSocket(socket);
 
     socket.on('connect', () => {
-      console.log("Connected.");
+      // console.log("Connected.");
     });
 
     socket.on("system", data => {
-      console.log(data);
+      // console.log(data);
       setMessages(prev => [data, ...prev]);
     });
 

@@ -30,7 +30,8 @@ app.post("/api/login", (req, res) => {
 
 // Login: remove user object from session
 app.post("/api/logout", (req, res) => {
-  req.session.user = null;
+  console.log("logout:", req.session.user);
+  req.session = null;
   res.status(204).send();
 });
 

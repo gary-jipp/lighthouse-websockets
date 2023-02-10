@@ -7,23 +7,19 @@ import 'App.css';
 export default function App() {
   const [user, setUser] = useState(null);
 
-  // Perform some login process for the user
+  // Login user on the server
   const login = function(email, password) {
     axios.post("api/login", {email, password})
       .then(res => {
         setUser(res.data);
-        console.log(res.data);
       });
   };
 
   const logout = function() {
     console.log("logout");
     axios.post("api/logout", {})
-      .then(res => {
+      .then(() => {
         setUser(null);
-      })
-      .catch(err => {
-        console.log("Error: ", err.message);
       });
   };
 

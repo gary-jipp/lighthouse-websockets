@@ -3,10 +3,7 @@ const express = require('express');
 
 // Enable Cookie Sessions
 const cookieSession = require('cookie-session');    // for Client Cookie Sessions
-const session = cookieSession({
-  name: 'session', keys: ["secret"], sameSite: true,
-  maxAge: 24 * 60 * 60 * 1000,// 24 hours
-});
+const session = cookieSession({name: 'session', keys: ["secret"], sameSite: true});
 
 // Can also use Server-based sessions
 // const expressSession = require("express-session");  // For Server Sessions
@@ -33,6 +30,7 @@ app.post("/api/login", (req, res) => {
 
 // Login: remove user object from session
 app.post("/api/logout", (req, res) => {
+  console.log(req.session.maxAge);
   req.session.user = null;
   res.status(204).send();
 });

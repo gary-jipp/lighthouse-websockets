@@ -6,8 +6,8 @@ const cookieSession = require('cookie-session');    // for Client Cookie Session
 const session = cookieSession({
   name: 'session',
   keys: ["secret"],
+  sameSite: true,
   maxAge: 24 * 60 * 60 * 1000,// 24 hours
-  sameSite: true
 });
 
 // Can also use Server-based sessions

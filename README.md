@@ -2,6 +2,9 @@
 [ ] What is a MPA in React?
 [ ] How do we achieve this
 [ ] Routing Libraries.  When to use, when its Overkill?
+ - React Router, often not needed
+ - deep linking, back(), history
+ - For just MPA, don't use!
 
 # Web Sockets
 - [ ] What is WebSockets

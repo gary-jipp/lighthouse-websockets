@@ -10,10 +10,6 @@ const Chat = function(props) {
   const [text, setText] = useState("");
   const [to, setTo] = useState("");
 
-  const notify = function() {
-    play();
-  };;
-
   useEffect(() => {
     const socket = io();
     setSocket(socket);
@@ -43,6 +39,9 @@ const Chat = function(props) {
     return () => socket.disconnect(); // prevents memory leaks
   }, []);
 
+  const notify = function() {
+    play();
+  };;
 
   const send = function() {
     socket.emit("message", {text, to});

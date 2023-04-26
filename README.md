@@ -1,7 +1,7 @@
 # Multi Page React Apps
-[ ] What is a MPA in React?
-[ ] How do we achieve this
-[ ] Routing Libraries.  When to use, when its Overkill?
+* [ ] What is a MPA in React?
+* [ ] How do we achieve this
+* [ ] Routing Libraries.  When to use, when its Overkill?
  - React Router, often not needed
  - Provides deep linking, back(), history
  - For just MPA, no need to use

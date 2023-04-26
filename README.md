@@ -4,7 +4,7 @@
 [ ] Routing Libraries.  When to use, when its Overkill?
  - React Router, often not needed
  - deep linking, back(), history
- - For just MPA, don't use!
+ - For just MPA, no need to use
 
 # Web Sockets
 - [ ] What is WebSockets

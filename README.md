@@ -1,4 +1,4 @@
-# Multi Page Ract Apps
+# Multi Page React Apps
 [ ] What is a MPA in React?
 [ ] How do we achieve this
 [ ] Routing Libraries.  When to use, when its Overkill?

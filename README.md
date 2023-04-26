@@ -3,7 +3,7 @@
 [ ] How do we achieve this
 [ ] Routing Libraries.  When to use, when its Overkill?
  - React Router, often not needed
- - deep linking, back(), history
+ - Provides deep linking, back(), history
  - For just MPA, no need to use
 
 # Web Sockets
@@ -42,7 +42,7 @@ Libraries:
  - written back when Comet was a thing
  - tries LP first. Upgrades to WS
  - super easy to use
- - looks  a lot like jQuery
+ - looks a lot like jQuery
  - features: auto-reconnect. custom events!
  - getting old, still hugely popular.
 

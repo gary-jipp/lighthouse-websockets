@@ -36,12 +36,13 @@ const Chat = function(props) {
       // console.log(data);
     });
 
+    const notify = function() {
+      play();
+    };;
+
     return () => socket.disconnect(); // prevents memory leaks
   }, []);
 
-  const notify = function() {
-    play();
-  };;
 
   const send = function() {
     socket.emit("message", {text, to});

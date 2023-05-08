@@ -30,18 +30,14 @@ const Chat = function(props) {
     });
 
     socket.on("private", data => {
-      notify();
+      play();
       const message = `${data.from} says:  ${data.text}`;
       setMessages(prev => [message, ...prev]);
       // console.log(data);
     });
 
-    const notify = function() {
-      play();
-    };;
-
     return () => socket.disconnect(); // prevents memory leaks
-  }, []);
+  }, [play]);
 
 
   const send = function() {

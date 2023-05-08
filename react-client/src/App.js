@@ -19,8 +19,9 @@ export default function App() {
     <div className="App">
       <h1>Web Sockets React</h1>
 
-      {auth && <Chat logout={logout} />}
       {!auth && <Login login={login} />}
+      
+      {auth && <Chat logout={logout} />}
 
     </div >
   );

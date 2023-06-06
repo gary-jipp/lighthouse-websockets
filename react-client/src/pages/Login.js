@@ -4,14 +4,14 @@ export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSubmit = function(event) {
+  const login = function(event) {
     event.preventDefault();
     email && props.login(email, password);
   };
 
   return (
     <div className="login">
-      <form onSubmit={onSubmit}>
+      <form onSubmit={login}>
         <p>
           <input type="text" name="username"
             value={email} placeholder="Enter Username or email"

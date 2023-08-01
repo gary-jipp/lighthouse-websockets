@@ -2,7 +2,7 @@
 * [ ] The http protocol
 * [ ] A Brief History of WebSockets
 * [ ] WebSockets Libraries
-* [ ] MultiPage Demo App
+* [ ] MultiPage App
 * [ ] Express Server
 * [ ] Server & Server Connections
 * [ ] Socket Events

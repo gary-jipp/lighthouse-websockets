@@ -2,9 +2,9 @@
 * [ ] The http protocol
 * [ ] A Brief History of WebSockets
 * [ ] WebSockets Libraries
-* [ ] MultiPage App
-* [ ] Express Server
-* [ ] Server & Server Connections
-* [ ] Socket Events
+* [ ] MultiPage React App (Client)
+* [ ] Node-Express (Server)
+* [ ] WebSocket Connections
+* [ ] WebSocket Events
 * [ ] Custom Events
 * [ ] Broadcast vs Direct messages

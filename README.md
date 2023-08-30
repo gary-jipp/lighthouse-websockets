@@ -7,4 +7,4 @@
 * [ ] WebSocket Connections
 * [ ] WebSocket Events
 * [ ] Custom Events
-* [ ] Broadcast vs Direct messages
+* [ ] Broadcast &  Direct messages

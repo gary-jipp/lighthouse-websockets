@@ -4,24 +4,24 @@ import {useState} from 'react';
 import 'App.css';
 
 export default function App() {
-  const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState(null);
 
   // Perform some login process for the user
   const login = function(email, password) {
-    setAuth(true);
+    setUser({email});
   };
 
   const logout = function() {
-    setAuth(false);
+    setUser(null);
   };
 
   return (
     <div className="App">
-      <h1>Web Sockets React</h1>
+      <h1>Web Sockets</h1>
 
-      {!auth && <Login login={login} />}
-      
-      {auth && <Chat logout={logout} />}
+      {!user && <Login login={login} />}
+
+      {user && <Chat logout={logout} />}
 
     </div >
   );

@@ -11,7 +11,7 @@ export default function Login(props) {
 
   return (
     <div className="login">
-      <h2>Login Page</h2>
+      <h2>Login</h2>
       <form onSubmit={onSubmit}>
         <p>
           <input type="text" name="username"

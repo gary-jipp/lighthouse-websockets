@@ -2,7 +2,7 @@ const Chat = function(props) {
 
   return (
     <>
-      <h2>Messages</h2>
+      <h2>Web Chat Page</h2>
       <button type="button" onClick={props.logout}>Logout</button>
     </>
   );

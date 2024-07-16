@@ -6,7 +6,7 @@ export default function Login(props) {
 
   const onSubmit = function(event) {
     event.preventDefault();
-    email && props.login(email, password);
+    props.login(email, password);
   };
 
   return (
